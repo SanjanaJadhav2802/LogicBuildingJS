@@ -1,0 +1,23 @@
+name: Daily Java Run
+
+on:
+  schedule:
+    - cron: '0 9 * * *'   # Runs every day at 9 AM
+  workflow_dispatch:     # Allows manual run
+
+jobs:
+  run-java:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build & Run
+        run: mvn clean test
